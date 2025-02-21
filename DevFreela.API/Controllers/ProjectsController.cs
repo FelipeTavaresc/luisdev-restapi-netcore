@@ -1,6 +1,8 @@
 ﻿using DevFreela.API.Models;
+using DevFreela.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Net.NetworkInformation;
 
 namespace DevFreela.API.Controllers
 {
@@ -9,15 +11,19 @@ namespace DevFreela.API.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly FreelanceTotalCostConfig _config;
-        public ProjectsController(IOptions<FreelanceTotalCostConfig> options)
+        private readonly IConfigService _configService;
+        public ProjectsController(IOptions<FreelanceTotalCostConfig> options, IConfigService configService)
         {
             _config = options.Value;
+            _configService = configService;
         }
 
         // GET api/projects?search=crm
         [HttpGet]
-        public IActionResult GetAll(string search) => Ok();
-
+        public IActionResult GetAll(string search = "")
+        {
+            return Ok(_configService.GetValue());
+        }
 
         // GET api/projects/123
         [HttpGet("{id}")]
@@ -35,14 +41,14 @@ namespace DevFreela.API.Controllers
 
         // PUT api/projects/123
         [HttpPut("{id}")]
-        public IActionResult Put(int id, UpdateProjectInputModel model) 
+        public IActionResult Put(int id, UpdateProjectInputModel model)
         {
             return NoContent();
         }
 
         // DELETE api/projects/1234
         [HttpDelete]
-        public IActionResult Delete(int id) 
+        public IActionResult Delete(int id)
         {
             return NoContent();
         }
