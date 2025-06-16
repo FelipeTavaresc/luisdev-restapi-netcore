@@ -2,7 +2,6 @@
 using DevFreela.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Net.NetworkInformation;
 
 namespace DevFreela.API.Controllers
 {
@@ -22,6 +21,7 @@ namespace DevFreela.API.Controllers
         [HttpGet]
         public IActionResult GetAll(string search = "")
         {
+            
             return Ok(_configService.GetValue());
         }
 
