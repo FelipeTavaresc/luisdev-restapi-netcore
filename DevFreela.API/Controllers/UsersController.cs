@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DevFreela.API.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevFreela.API.Controllers
 {
@@ -7,7 +8,13 @@ namespace DevFreela.API.Controllers
     public class UsersController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Post() => Ok();
+        public IActionResult Post(CreateUserInputModel model) => Ok();
+
+        [HttpPost("{id}/skills")]
+        public IActionResult PostSkills(UserSkillsInputModel model)
+        {
+            return NoContent();
+        }
 
         [HttpPut("{id}/profile-picture")]
         public IActionResult PostProfilePicture(IFormFile file)
