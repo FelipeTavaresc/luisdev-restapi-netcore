@@ -3,7 +3,7 @@ using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevFreela.Application.Services;
+namespace DevFreela.Application.Services.Project;
 
 public class ProjectService : IProjectService
 {

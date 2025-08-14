@@ -2,7 +2,7 @@
 using DevFreela.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DevFreela.Application.Services;
+using DevFreela.Application.Services.Project;
 
 namespace DevFreela.API.Controllers
 {
