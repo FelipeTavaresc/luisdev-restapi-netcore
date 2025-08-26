@@ -1,5 +1,4 @@
 ﻿using DevFreela.Application.Models;
-using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,28 +8,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.InsertComment
+namespace DevFreela.Application.Commands.Project.UpdateProject
 {
-    public class InsertCommentHandler : IRequestHandler<InsertCommentCommand, ResultViewModel>
+    public class UpdateProjectHandler : IRequestHandler<UpdateProjectCommand, ResultViewModel>
     {
         private readonly DevFreelaDbContext _context;
 
-        public InsertCommentHandler(DevFreelaDbContext context)
+        public UpdateProjectHandler(DevFreelaDbContext context)
         {
             _context = context;
         }
 
-        public async Task<ResultViewModel> Handle(InsertCommentCommand request, CancellationToken cancellationToken)
+        public async Task<ResultViewModel> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _context.Projects.SingleOrDefaultAsync(p => p.Id == request.IdProject);
 
             if (project is null)
                 return ResultViewModel.Error("Projeto não existe");
 
-            var comment = new ProjectComment(request.Content, request.IdProject, request.IdUser);
+            project.Update(request.Title, request.Description, request.TotalCost);
 
-            await _context.ProjectComments.AddAsync(comment);
-            await _context.SaveChangesAsync();
+            _context.Projects.Update(project);
+            _context.SaveChanges();
 
             return ResultViewModel.Success();
         }

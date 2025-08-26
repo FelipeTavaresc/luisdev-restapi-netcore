@@ -1,13 +1,7 @@
 ﻿using DevFreela.Application.Models;
-using DevFreela.Core.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DevFreela.Application.Commands.InsertProject
+namespace DevFreela.Application.Commands.Project.InsertProject
 {
     public class InsertProjectCommand : IRequest<ResultViewModel<int>>
     {
@@ -26,6 +20,6 @@ namespace DevFreela.Application.Commands.InsertProject
         public int IdFreelancer { get; set; }
         public decimal TotalCost { get; set; }
 
-        public Project ToEntity() => new(Title, Description, IdClient, IdFreelancer, TotalCost);
+        public Core.Entities.Project ToEntity() => new(Title, Description, IdClient, IdFreelancer, TotalCost);
     }
 }

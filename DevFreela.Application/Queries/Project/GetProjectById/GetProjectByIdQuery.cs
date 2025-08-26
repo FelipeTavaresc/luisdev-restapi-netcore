@@ -1,7 +1,7 @@
 ﻿using DevFreela.Application.Models;
 using MediatR;
 
-namespace DevFreela.Application.Queries.GetProjectById
+namespace DevFreela.Application.Queries.Project.GetProjectById
 {
     public class GetProjectByIdQuery : IRequest<ResultViewModel<ProjectViewModel>>
     {
