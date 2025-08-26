@@ -28,8 +28,6 @@ namespace DevFreela.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get(string search = "")
         {
-            //var result = _projectService.GetAll();
-
             var query = new GetAllProjectsQuery();
 
             var result = await _mediator.Send(query);
@@ -54,6 +52,9 @@ namespace DevFreela.API.Controllers
         public async Task<IActionResult> Post(InsertProjectCommand command)
         {
             var result = await _mediator.Send(command);
+
+            if(!result.IsSuccess)
+                return BadRequest(result.Message);
 
             return CreatedAtAction(nameof(GetById), new { id = result.Data }, command);
         }

@@ -1,5 +1,8 @@
-﻿using DevFreela.Application.Commands.Project.InsertProject;
+﻿using DevFreela.Application.Commands.Project.InsertComment;
+using DevFreela.Application.Commands.Project.InsertProject;
+using DevFreela.Application.Models;
 using DevFreela.Application.Services.Project;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DevFreela.Application;
@@ -24,6 +27,8 @@ public static class ApplicationModule
     {
         services.AddMediatR(config =>
             config.RegisterServicesFromAssemblyContaining<InsertProjectCommand>());
+
+        services.AddTransient<IPipelineBehavior<InsertProjectCommand, ResultViewModel<int>>, ValidateInsertProjectCommandBehavior>();
 
         return services;
     }
