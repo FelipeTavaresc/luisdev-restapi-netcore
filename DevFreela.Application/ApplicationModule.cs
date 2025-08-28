@@ -1,7 +1,6 @@
 ﻿using DevFreela.Application.Commands.Project.InsertComment;
 using DevFreela.Application.Commands.Project.InsertProject;
 using DevFreela.Application.Models;
-using DevFreela.Application.Services.Project;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,15 +10,7 @@ public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddService();
         services.AddHandlers();
-        return services;
-    }
-        
-
-    private static IServiceCollection AddService(this IServiceCollection services)
-    {
-        services.AddScoped<IProjectService, ProjectService>();
         return services;
     }
 
