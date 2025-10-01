@@ -3,6 +3,8 @@ using DevFreela.Application.Commands.Project.InsertProject;
 using DevFreela.Application.Models;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace DevFreela.Application;
 
@@ -10,7 +12,9 @@ public static class ApplicationModule
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddHandlers();
+        services
+            .AddHandlers()
+            .AddValidation();
         return services;
     }
 
@@ -20,6 +24,15 @@ public static class ApplicationModule
             config.RegisterServicesFromAssemblyContaining<InsertProjectCommand>());
 
         services.AddTransient<IPipelineBehavior<InsertProjectCommand, ResultViewModel<int>>, ValidateInsertProjectCommandBehavior>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddValidation(this IServiceCollection services)
+    {
+        services
+              .AddFluentValidationAutoValidation()
+              .AddValidatorsFromAssemblyContaining<InsertProjectCommand>();
 
         return services;
     }
