@@ -1,6 +1,7 @@
 ﻿using DevFreela.Application.Commands.Project.InsertProject;
 using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
+using FluentAssertions;
 using Moq;
 using NSubstitute;
 
@@ -33,6 +34,10 @@ namespace DevFreela.UnitTest.Application
             // Assert
             Assert.True(result.IsSuccess);
             Assert.Equal(ID, result.Data);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Data.Should().Be(ID);
+
             await repository.Received(1).Insert(Arg.Any<Project>());
         }
 
