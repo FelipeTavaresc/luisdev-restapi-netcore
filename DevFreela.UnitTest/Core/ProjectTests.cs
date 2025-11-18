@@ -1,5 +1,6 @@
 ﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Enums;
+using DevFreela.UnitTest.Fakes;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,9 @@ public class ProjectTests
     public void ProjectIsCreated_Start_Success()
     {
         // Arrange
-        var project = new Project("Project", "Project Description", 1, 2, 1000);
+        //var project = new Project("Project", "Project Description", 1, 2, 1000);
+
+        var project = FakeDataHelper.CreateFakeProject();
 
         // Act
         project.Start();
@@ -35,7 +38,9 @@ public class ProjectTests
     public void ProjectIsInInvalidState_Start_ThrowsException()
     {
         // Arrange
-        var project = new Project("Project", "Project Description", 1, 2, 1000);
+        //var project = new Project("Project", "Project Description", 1, 2, 1000);
+        var project = FakeDataHelper.CreateFakeProject();
+
         project.Start();
 
         // Act + Assert
